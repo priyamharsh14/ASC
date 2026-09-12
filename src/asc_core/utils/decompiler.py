@@ -50,10 +50,17 @@ sys.modules['lzma'] = DummyModule()
 sys.modules['shutil'] = DummyModule()
 sys.modules['bisect'] = DummyModule()
 sys.modules['random'] = DummyModule()
-sys.modules['json'] = DummyModule()
-sys.modules['json.scanner'] = DummyModule()
-sys.modules['json.decoder'] = DummyModule()
-sys.modules['json.encoder'] = DummyModule()
+
+
+def _stub_missing(name):
+    if name not in sys.modules:
+        sys.modules[name] = DummyModule()
+
+
+_stub_missing('json')
+_stub_missing('json.scanner')
+_stub_missing('json.decoder')
+_stub_missing('json.encoder')
 sys.modules['math'] = DummyModule()
 sys.modules['weakref'] = DummyModule()
 
